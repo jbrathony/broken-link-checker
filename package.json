@@ -1,0 +1,18 @@
+{
+  "name": "broken-link-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "broken-link-checker": "0.7.8",
+    "cheerio": "^1.0.0-rc.3",
+    "is-relative-url": "^3.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
