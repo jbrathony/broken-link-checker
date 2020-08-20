@@ -1,16 +1,20 @@
 const blc = require('broken-link-checker');
+const options = {
+    acceptedSchemes: ["http", "https"],
+    cacheExpiryTime: 3600000,
+    filterLevel: 1,
+    honorRobotExclusions: true,
+    requestMethod: "head", // "head", "get"
+    retry405Head: true,
+    userAgent: "broken-link-checker/0.7.0 Node.js/5.5.0 (OS X El Capitan; x64)",
+    excludedKeywords: [],
+    excludedSchemes: ["data","geo","javascript","mailto","sms","tel"],
+    excludeExternalLinks: false,
+    excludeInternalLinks: false
+};
 
 module.exports = {
-    async verifyHrefStatus(url) {
-        var options = {
-            acceptedSchemes: ["http", "https"],
-            cacheExpiryTime: 3600000,
-            filterLevel: 1,
-            honorRobotExclusions: true,
-            requestMethod: "head", // "head", "get"
-            retry405Head: true,
-            userAgent: "broken-link-checker/0.7.0 Node.js/5.5.0 (OS X El Capitan; x64)"
-        };
+    async siteCheck(url) {
         await new Promise((resolve, reject) => {
             var siteChecker = new blc.SiteChecker(options, {
                 robots: function (robots, customData) { },
@@ -36,5 +40,22 @@ module.exports = {
             });
             siteChecker.enqueue(url);
         });
-    }
+    },
+
+    async urlCheck(url) {
+        await new Promise((resolve, reject) => {
+            var urlChecker = new blc.UrlChecker(options, {
+                link: function (result, customData) {
+                    if (result.broken) {
+                        console.log('broken link ===> ', result.url.original);
+                    }
+                },
+                end: function () { // end is fired when the end of the queue has been reached
+                    resolve();
+                    console.log("--------- Completed -----------");
+                }
+            });
+            urlChecker.enqueue(url);
+        });
+    },
 }

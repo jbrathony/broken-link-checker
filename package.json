@@ -1,5 +1,5 @@
 {
-  "name": "broken-link-checker",
+  "name": "broken-link-checker-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "broken-link-checker": "0.7.8",
+    "broken-link-checker": "^0.7.8",
     "cheerio": "^1.0.0-rc.3",
     "is-relative-url": "^3.0.0"
   },
